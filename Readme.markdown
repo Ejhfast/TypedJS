@@ -8,17 +8,25 @@ Basic, automatic JavaScript testing. Requires jQuery. This is just a start. Type
 
 First, annotate your javascript functions with Haskell-like type signatures:
 
-    //+ my_func :: Number -> String -> [Number]
-    
-    function my_func(myint, mystring){
-      ...
-      return myarray;
+    //+ add_all :: [Number] -> Number 
+
+    function add_all(num_arr){
+      var count = num_arr[0]; // Error, could be nil
+      for(i = 1; i < num_arr.length; i++){
+        count = num_arr[i];
+      }
+      return count;
     };
-    
-    //+ name_getter :: Number -> {nm:String, cts:[{nm:String, nbr:Number}]} -> String
-    
-    function name_getter(num,obj){
-      return obj.cts[num].nm;
+
+    //+ my_prop :: {name:String, valid:Boolean} -> Boolean
+
+    function my_prop(obj){
+      if(obj.valid === true){
+        return "true"; // Error, we are 
+      }                // returning a string here
+      else{
+        return obj.valid;
+      }
     };
   
 Then load your JavaScript file in a browser window and run:
