@@ -1,6 +1,6 @@
 ## TypedJS
 
-Automatic JavaScript testing
+Automatic JavaScript testing. Requires jQuery. In need of some refactoring.
 
 ### Usage
 
@@ -11,3 +11,7 @@ First, annotate your javascript functions with Haskell-like syntax:
 Then load your JavaScript file in a browser window and run:
 
     TypedJS.run_tests()
+    
+### License 
+
+Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0)
