@@ -4,7 +4,7 @@ Automatic JavaScript testing. Requires jQuery. (Warning: In need of some refacto
 
 ### Usage
 
-First, annotate your javascript functions with Haskell-like syntax:
+First, annotate your javascript functions with Haskell-like type signatures:
 
     //+ my_func :: Number -> String -> [Number]
     
