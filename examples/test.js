@@ -29,7 +29,9 @@ function char_first(c1,c2){
   return c1;
 }
 
+// Demo the or (|) operator
 //+ maybe_char :: Char -> Char -> Char | Boolean
+
 function char_first(trig,c2){
   if(trig) return c1;
   return false;
