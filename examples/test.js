@@ -3,7 +3,7 @@
 function add_all(num_arr){
   var count = num_arr[0]; // Error, could be nil
   for(i = 1; i < num_arr.length; i++){
-    count = num_arr[i];
+    count = count + num_arr[i];
   }
   return count;
 };
@@ -32,7 +32,7 @@ function char_first(c1,c2){
 // Demo the or (|) operator
 //+ maybe_char :: Char -> Char -> Char | Boolean
 
-function char_first(trig,c2){
+function mayby_char(trig,c2){
   if(trig) return c1;
   return false;
 }
