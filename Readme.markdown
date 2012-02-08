@@ -8,15 +8,11 @@ Basic, automatic JavaScript testing. Requires jQuery. This is just a start. Type
 
 First, annotate your javascript functions with Haskell-like type signatures:
 
-    //+ add_all :: [Number] -> Number 
-
-    function add_all(num_arr){
-      var count = num_arr[0]; // Error, could be nil
-      for(i = 1; i < num_arr.length; i++){
-        count = num_arr[i];
-      }
-      return count;
-    };
+    //+ char_first :: Char -> Char -> Char
+    
+    function char_first(c1,c2){
+      return c1;
+    }
 
     //+ my_prop :: {name:String, valid:Boolean} -> Boolean
 
