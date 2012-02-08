@@ -1,6 +1,6 @@
 ## TypedJS
 
-Automatic JavaScript testing. Requires jQuery. In need of some refactoring.
+Automatic JavaScript testing / fake type-checking. Requires jQuery. In need of some refactoring.
 
 ### Usage
 
