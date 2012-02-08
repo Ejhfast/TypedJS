@@ -24,8 +24,14 @@ function fullname(obj){
   return obj.first + " " + obj.last;
 }
 
-//+ join_char :: Char -> Char -> Char
-function join_char(c1,c2){
+//+ char_first :: Char -> Char -> Char
+function char_first(c1,c2){
   return c1;
+}
+
+//+ maybe_char :: Char -> Char -> Char | Boolean
+function char_first(trig,c2){
+  if(trig) return c1;
+  return false;
 }
 
