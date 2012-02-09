@@ -79,17 +79,48 @@ var TypedJS = {
       return TypedJS.gen_input_primative(obj);
     }
   },
-  check_type:function(r,e){
-    var match = r === e;
-    if(e["or"] != undefined){
-      for(var i in e["or"]){
-        if(r === e["or"][i]) match = true;
+  check_type:function(obj,exp){
+    if(exp === undefined || obj === undefined){
+      return false;
+    }
+    if(exp["or"] != undefined){
+      var tmp = false;
+      for(i in exp["or"]){
+        tmp = tmp || TypedJS.check_type(obj, exp["or"][i])
+      }
+      return tmp;
+    }
+    else{
+      var top = TypedJS.typeOf(obj);
+      if(top === "array"){
+        if(TypedJS.typeOf(exp) === "array"){
+          var tmp = true;
+          for(var i = 0; i < obj.length; i++){
+            tmp = tmp && TypedJS.check_type(obj[i], exp[i])
+          }
+          return tmp;
+        }
+        else if(exp["array"] != undefined){
+          var tmp = true;
+          for(var i = 0; i < obj.length; i++){
+            tmp = tmp && TypedJS.check_type(obj[i], exp["array"])
+          }
+        }
+        else{
+          return false;
+        }
+      }
+      else if(top === "object"){
+        var tmp = true;
+        for(i in obj){
+          tmp = tmp && TypedJS.check_type(obj[i],exp[i]);
+        }
+        return tmp;
+      }
+      else{
+        return top === exp;
       }
     }
-    else if(e["array"] != undefined){
-      if(r === "array") match = true;
-    }
-    return match;
   },
   run_test:function(object,func,exp_typ,func_name){
     var fail_count = 0;
