@@ -24,6 +24,15 @@ First, annotate your javascript functions with Haskell-like type signatures:
         return obj.valid;
       }
     };
+    
+    // We can do objects, too:
+    
+    MyObj = {
+      //+ MyObj.test_fun :: Number -> Number -> Number
+      test_fun:function(num1, num2){
+        return num1 + num2;
+      }
+    }
   
 Then load your JavaScript file in a browser window and run:
 
