@@ -49,3 +49,10 @@ function test_or(o){
 function test_arr(s1,s2){
   return [s1,s2];
 }
+
+MyObj = {
+  //+ MyObj.test_fun :: Number -> Number -> Number
+  test_fun:function(num1, num2){
+    return num1 + num2;
+  }
+}
