@@ -38,3 +38,13 @@ function mayby_char(trig,c2){
   return false;
 }
 
+//+ test_obj :: {name:String, email:String} -> {name:String, email:String}
+function test_obj(o){
+  return o;
+}
+
+//+ test_or :: {name:String, email:String} -> {name:String, email:String} | Boolean
+function test_or(o){
+  return {name:"Etan",email:"ok"};
+};
+
