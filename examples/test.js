@@ -1,8 +1,9 @@
+
 //+ add_all :: [Number] -> Number 
 
 function add_all(num_arr){
-  var count = num_arr[0]; // Error, could be nil
-  for(i = 1; i < num_arr.length; i++){
+  var count = num_arr[0]; // Error, could be null
+  for(var i = 1; i < num_arr.length; i++){
     count = count + num_arr[i];
   }
   return count;
