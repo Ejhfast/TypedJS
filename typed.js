@@ -128,9 +128,8 @@ var TypedJS = {
       var happy_sig = TypedJS.walk_object(object);
       try{
         var res = func.apply(this,(happy_sig));
-        var ret_typ = TypedJS.typeOf(res);
-        if(!TypedJS.check_type(ret_typ,exp_typ)){
-          throw "Type Error: " + func_name + ": " + "Expected \"" + exp_typ + "\" but returned \"" + ret_typ +"\"";
+        if(!TypedJS.check_type(res,exp_typ)){
+          throw "Type Error: " + func_name + ": " + "Expected \"" + exp_typ + "\" but returned \"" + res +"\"";
         }
       }
       catch(e){
