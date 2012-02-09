@@ -84,9 +84,9 @@ var TypedJS = {
       return false;
     }
     if(exp["or"] != undefined){
-      var tmp = false;
+      var tmp = false;      
       for(i in exp["or"]){
-        tmp = tmp || TypedJS.check_type(obj, exp["or"][i])
+        tmp = tmp || TypedJS.check_type(obj, exp["or"][i]);
       }
       return tmp;
     }
@@ -105,6 +105,7 @@ var TypedJS = {
           for(var i = 0; i < obj.length; i++){
             tmp = tmp && TypedJS.check_type(obj[i], exp["array"])
           }
+          return tmp;
         }
         else{
           return false;
@@ -129,7 +130,7 @@ var TypedJS = {
       try{
         var res = func.apply(this,(happy_sig));
         if(!TypedJS.check_type(res,exp_typ)){
-          throw "Type Error: " + func_name + ": " + "Expected \"" + exp_typ + "\" but returned \"" + res +"\"";
+          throw "Type Error: " + func_name + ": " + "Expected \"" + JSON.stringify(exp_typ).replace(/\"/g,"") + "\" but returned \"" + res +"\"";
         }
       }
       catch(e){
