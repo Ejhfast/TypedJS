@@ -63,8 +63,8 @@ And tuples (T1, T2, ... TN). For instance:
 
 And arrays:
     
-    [Number]            // Array of number
-    [Number | String]   // Array of numbers or strings
+    [Number]            // Array of Numbers. Example instances => [3,4,5] or [45,62,34,78,23]
+    [Number | String]   // Array of Numbers or Strings. Example instance => [3,"s",5,6,"h"]
     
 And objects, which can be nested and mixed with other types. For instance:
 
