@@ -8,9 +8,9 @@ Basic, automatic JavaScript testing. Requires jQuery. This is just a start. Type
 
 First, annotate your javascript functions with Haskell-like type signatures:
 
-    //+ char_first :: Char -> Char -> Char
+    //+ str_first :: String -> String -> String
     
-    function char_first(c1,c2){
+    function str_first(c1,c2){
       return c1;
     }
 
@@ -50,13 +50,13 @@ Currently available primitives:
     String
     Boolean
     
-And "ORs" of primitives:
+And ORs of primitives:
 
     Number | String   // Number or String
     Boolean | Number  // Boolean or Number
     ...
     
-And tuples (T1, T2, ... TN) E.g:
+And tuples (T1, T2, ... TN). For instance:
 
     (Number, String, Boolean, Boolean)  // An example instance => [4,"hello",true,true]
     (Boolean, Boolean)                  // An example instance => [true, false]
@@ -66,7 +66,7 @@ And arrays:
     [Number]            // Array of number
     [Number | String]   // Array of numbers or strings
     
-And objects, which can be nested and mixed with other types E.g:
+And objects, which can be nested and mixed with other types. For instance:
 
     {key1: String, key2:[Number], key3:{subkey1:String, subkey2: Number}}
     
