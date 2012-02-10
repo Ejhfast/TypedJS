@@ -24,6 +24,15 @@ First, annotate your javascript functions with Haskell-like type signatures:
         return obj.valid;
       }
     };
+    
+    // We can do objects, too:
+    
+    MyObj = {
+      //+ MyObj.test_fun :: Number -> Number -> Number
+      test_fun:function(num1, num2){
+        return num1 + num2;
+      }
+    }
   
 Then load your JavaScript file in a browser window and run:
 
@@ -32,6 +41,38 @@ Then load your JavaScript file in a browser window and run:
 If you want to instrument your annotated functions to dynamically detect type violations, run:
 
     TypedJS.run_tests(true)
+    
+### Types
+
+Currently available primitives:
+    
+    Number
+    String
+    Boolean
+    
+And "ORs" of primitives:
+
+    Number | String   // Number or String
+    Boolean | Number  // Boolean or Number
+    ...
+    
+And tuples (T1, T2, ... TN) E.g:
+
+    (Number, String, Boolean, Boolean)  // An example instance => [4,"hello",true,true]
+    (Boolean, Boolean)                  // An example instance => [true, false]
+
+And arrays:
+    
+    [Number]            // Array of number
+    [Number | String]   // Array of numbers or strings
+    
+And objects, which can be nested and mixed with other types E.g:
+
+    {key1: String, key2:[Number], key3:{subkey1:String, subkey2: Number}}
+    
+
+
+
     
 ### License 
 

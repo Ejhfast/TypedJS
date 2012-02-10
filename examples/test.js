@@ -25,7 +25,7 @@ function fullname(obj){
   return obj.first + " " + obj.last;
 }
 
-//+ join_char :: Char -> Char -> Char
+//+ join_char :: String -> String -> String
 function join_char(c1,c2){
   return c1;
 }
@@ -41,7 +41,7 @@ function test_or(o){
     return {name:"Etan",email:"ok"};
   }
   else{
-    return "t"; //true;
+    return true; //true;
   }
 };
 
@@ -55,4 +55,10 @@ MyObj = {
   test_fun:function(num1, num2){
     return num1 + num2;
   }
+}
+
+//+ add_tos :: Number -> Number -> String
+
+function add_tos(n1,n2){
+  return (n1 + n2) + "";
 }

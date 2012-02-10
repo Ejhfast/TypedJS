@@ -1,13 +1,10 @@
 var TypedJS = {
   possible:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789`1234567890-=~!@#$%^&*()_+[]\{}|;':\",./<>?",
-  test_cases:200,
+  test_cases:300,
   random_array_max_length:10,
   typeOf:function(o){
   	var type = typeof o;
   	if (type !== 'object'){
-  	  if(type === 'string'){
-  	    if (o.length === 1) return 'char';
-  	  }
   		return type;
   	} 
   	else if (Object.prototype.toString.call(o) === '[object Array]'){
@@ -144,7 +141,7 @@ var TypedJS = {
   },
   go:function(testcases,redefine){
     var fail_count = 0;
-    var func_fail = [];
+    var func_fail = [], func_pass = [];
     if(testcases && testcases.length > 0){
       var total_cases = testcases.length * TypedJS.test_cases;
       for(var i in testcases){
@@ -154,6 +151,9 @@ var TypedJS = {
         if(testcase > 0){
           func_fail.push(test.func_name);
         }
+        else{
+          func_pass.push(test.func_name);
+        }
       }
       console.log("Ran " + total_cases + " cases. Failed " + fail_count + ".");
       console.log("Functions which failed >1 test case: " + JSON.stringify(func_fail));
@@ -161,46 +161,49 @@ var TypedJS = {
     else{
       console.log("Please define TypedJS.test.");
     }
+    return [func_fail,func_pass];
+  },
+  run_tests_on_string:function(str,redefine,json){
+    var types = [],
+        lines = str.split("\n");
+     for(var i = 0; i < lines.length; i++){
+        if(lines[i].replace(" ",'').replace(' ','').indexOf("//+") == 0){
+          types.push(lines[i]);
+        }
+    }
+    if(types.length > 0){
+      var suite = [];
+      for(var i = 0; i < types.length; i++){
+        var base = JSON.parse(typedjs_parser.parse(types[i]));
+        base["func_name"] = base["func"];
+        base["ret"] = base["args"].splice(base["args"].length - 1, 1)[0];
+        if(redefine) TypedJS.redefine(base["func_name"],base["args"],base["ret"]);
+        base["func"] = TypedJS.comp_func(base["func"]);
+        suite.push(base);
+      }
+      return TypedJS.go(suite, redefine);
+    }
+  },
+  comp_func:function(func){
+    var pieces = func.split(".");
+    var curr_obj;
+    for(var i = 0; i < pieces.length; i++){
+      if(i === 0){
+        curr_obj = window[pieces[0]];
+      }
+      else curr_obj = curr_obj[pieces[i]]
+    }
+    curr_obj.name = func;
+    return curr_obj;
   },
   run_tests:function(redefine){
     if(redefine === undefined){
       redefine = false;
     }
-    function comp_func(func){
-      var pieces = func.split(".");
-      var curr_obj;
-      for(var i = 0; i < pieces.length; i++){
-        if(i === 0){
-          curr_obj = window[pieces[0]];
-        }
-        else curr_obj = curr_obj[pieces[i]]
-      }
-      curr_obj.name = func;
-      return curr_obj;
-    }
     var scripts = $('script');
     scripts.each(function(i,el){
       $.get(el.src, function(data){
-        var types = [];
-        lines = data.split("\n");
-        for(var i = 0; i < lines.length; i++){
-          if(lines[i].replace(" ",'').replace(' ','').indexOf("//+") == 0){
-            types.push(lines[i]);
-          }
-        }
-        if(types.length > 0){
-          var suite = [];
-          for(var i = 0; i < types.length; i++){
-            var base = JSON.parse(typedjs_parser.parse(types[i]));
-            base["func_name"] = base["func"];
-            base["ret"] = base["args"].splice(base["args"].length - 1, 1)[0];
-            if(redefine) TypedJS.redefine(base["func_name"],base["args"],base["ret"]);
-            base["func"] = comp_func(base["func"]);
-            suite.push(base);
-          }
-          console.log("Running on " + el.src);
-          TypedJS.go(suite, redefine);
-        }
+        TypedJS.run_tests_on_string(data,redefine);
       });
     });
   },
