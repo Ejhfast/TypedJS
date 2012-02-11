@@ -34,13 +34,61 @@ First, annotate your javascript functions with Haskell-like type signatures:
       }
     }
   
-Then load your JavaScript file in a browser window and run:
+#### Run in the Browser
+
+Load your JavaScript file in a browser window and run:
 
     TypedJS.run_tests()
     
 If you want to instrument your annotated functions to dynamically detect type violations, run:
 
     TypedJS.run_tests(true)
+    
+#### Node.js support
+
+Add tests manually:
+
+        var TypedJS = require('../typed');
+        typedjs_parser = require('../typedjs_parser');
+
+
+        // Example function to test...
+        function concat(a, b) {
+             return a + b;
+        }
+
+        // You can manually add tests to TypedJS
+        // The first parameter is the type signature
+        // The second parameter is the actual function we'll be testing
+        var test = TypedJS.addTest('concat :: String -> String -> String', concat);
+
+        // Call 'go' to execute the automated tests
+        // go requires one parameter and it's an Array of the tests to run.
+        TypedJS.go([test]);
+        
+Or load a file:
+
+
+        var TypedJS = require('../typed');
+        typedjs_parser = require('../typedjs_parser');
+
+        // A vm is necessary so you can bind all the global functions to 'window'
+        var fs = require('fs');
+        var vm = require('vm');
+
+        // Extract the data from the file
+        var fileData = fs.readFileSync('examples/test.js', 'utf-8');
+
+        // Pull in all the global functions into window
+        window = {};
+        vm.runInNewContext(fileData, window);
+
+
+        // Run TypedJS on the fileData String.
+        // TypedJS will parse all your type signatures
+        // read the functions from 'window' and execute
+        // the automated tests.
+        TypedJS.run_tests_on_string(fileData);
     
 ### Types
 
