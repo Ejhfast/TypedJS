@@ -2,7 +2,7 @@ var TypedJS = {
   possible:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789`1234567890-=~!@#$%^&*()_+[]\{}|;':\",./<>?",
   test_cases:300,
   random_array_max_length:10,
-  isArray: (arr) {
+  isArray:function(arr) {
     if (typeof Array.isArray === 'function') {
       return Array.isArray(arr);
     } else {
