@@ -204,15 +204,35 @@ var TypedJS = {
     return curr_obj;
   },
   run_tests:function(redefine){
-    if(redefine === undefined){
+    if (redefine === undefined) {
       redefine = false;
     }
-    var scripts = $('script');
-    scripts.each(function(i,el){
-      $.get(el.src, function(data){
-        TypedJS.run_tests_on_string(data,redefine);
+
+    function request(url, cb) {
+      var httpRequest;
+      if (window.XMLHttpRequest) {
+        httpRequest = new XMLHttpRequest();
+      } else if (window.ActiveXObject) {
+        httpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+      }
+
+      httpRequest.onreadystatechange = function requestReadyState() {
+        if (httpRequest.readyState === 4) {
+          cb(httpRequest.responseText);
+        }
+      };
+
+      httpRequest.open('GET', url, true);
+      httpRequest.send(null);
+    }
+
+    var scripts = Array.prototype.slice.call(document.getElementsByTagName('script'), 0);
+
+    for (var i = 0; i < scripts.length; i += 1) {
+      request(scripts[i].src, function (data) {
+        TypedJS.run_tests_on_string(data, redefine);
       });
-    });
+    }
   },
   // Checking types at runtime
   redefine:function(f_name, arg_types, ret_type){
