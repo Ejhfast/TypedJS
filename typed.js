@@ -170,6 +170,18 @@ var TypedJS = {
     }
     return [func_fail,func_pass];
   },
+  addTest: function (signature, fn, redefine) {
+    if (signature.indexOf('//+') === -1) {
+      signature = '//+' + signature;
+    }
+
+    var base = JSON.parse(typedjs_parser.parse(signature));
+    base["func_name"] = base["func"];
+    base["ret"] = base["args"].splice(base["args"].length - 1, 1)[0];
+    if (redefine) TypedJS.redefine(base["func_name"],base["args"],base["ret"]);
+    base["func"] = fn || this.comp_func(base["func"]);
+    return base;
+  },
   run_tests_on_string:function(str,redefine,json){
     var types = [],
         lines = str.split("\n");
@@ -180,12 +192,8 @@ var TypedJS = {
     }
     if(types.length > 0){
       var suite = [];
-      for(var i = 0; i < types.length; i++){
-        var base = JSON.parse(typedjs_parser.parse(types[i]));
-        base["func_name"] = base["func"];
-        base["ret"] = base["args"].splice(base["args"].length - 1, 1)[0];
-        if(redefine) TypedJS.redefine(base["func_name"],base["args"],base["ret"]);
-        base["func"] = TypedJS.comp_func(base["func"]);
+      for(var i = 0; i < types.length; i++) {
+        var base = this.addTest(types[i], null, redefine);
         suite.push(base);
       }
       return TypedJS.go(suite, redefine);
