@@ -294,5 +294,7 @@ var TypedJS = {
   }
 }
 
-
+if (typeof module !== 'undefined') {
+  module.exports = TypedJS;
+}
 
