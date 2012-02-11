@@ -1,6 +1,6 @@
 ## TypedJS
 
-Basic, automatic JavaScript testing. Requires jQuery. This is just a start. TypedJS will soon provide more complex forms of program specification, and analysis. The goal: safe, correct JavaScript.
+Basic, automatic JavaScript testing. This is just a start. TypedJS will soon provide more complex forms of program specification, and analysis. The goal: safe, correct JavaScript.
 
 (Warning: In need of some refactoring).
 
