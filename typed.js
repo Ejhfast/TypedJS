@@ -2,6 +2,10 @@ var TypedJS = {
   possible:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789`1234567890-=~!@#$%^&*()_+[]\{}|;':\",./<>?",
   test_cases:300,
   random_array_max_length:10,
+  quiet: false,
+  log: function () {
+    this.quiet || (console.log(Array.prototype.slice.call(arguments, 0).join(' ')));
+  },
   isArray:function(arr) {
     if (typeof Array.isArray === 'function') {
       return Array.isArray(arr);
@@ -140,7 +144,7 @@ var TypedJS = {
           }
         }
         catch(e){
-          console.log(e);
+          TypedJS.log(e);
           fail_count = fail_count + 1;
         }
       }
@@ -162,11 +166,11 @@ var TypedJS = {
           func_pass.push(test.func_name);
         }
       }
-      console.log("Ran " + total_cases + " cases. Failed " + fail_count + ".");
-      console.log("Functions which failed >1 test case: " + JSON.stringify(func_fail));
+      TypedJS.log("Ran " + total_cases + " cases. Failed " + fail_count + ".");
+      TypedJS.log("Functions which failed >1 test case: " + JSON.stringify(func_fail));
     }
     else{
-      console.log("Please define TypedJS.test.");
+      TypedJS.log("Please define TypedJS.test.");
     }
     return [func_fail,func_pass];
   },
@@ -264,7 +268,7 @@ var TypedJS = {
           return f.apply(this, arguments);
         }
         catch(e){
-          console.log(e); // Do something more interesting here...
+          TypedJS.log(e); // Do something more interesting here...
           throw e;
         }
       }
@@ -275,15 +279,15 @@ var TypedJS = {
       for(i in parts){
         e_str = e_str + "[\"" + parts[i] + "\"]";
       }
-      console.log(e_str);
+      TypedJS.log(e_str);
       if(eval(e_str) === undefined){
         throw "Function " + f_name + " does not exist."
       }
       else{
-        console.log("wrapping...");
-        console.log(arg_types);
+        TypedJS.log("wrapping...");
+        TypedJS.log(arg_types);
         e_str = e_str + "=wrap("+e_str+")";
-        console.log(e_str);
+        TypedJS.log(e_str);
         return eval(e_str);
       }
     }
