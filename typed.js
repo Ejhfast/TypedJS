@@ -201,6 +201,8 @@ var TypedJS = {
         suite.push(base);
       }
       return TypedJS.go(suite, redefine);
+    } else {
+      return [[],[]];
     }
   },
   comp_func:function(func){
