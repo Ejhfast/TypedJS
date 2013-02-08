@@ -8,7 +8,7 @@ Basic, automatic JavaScript testing. This is just a start. TypedJS will soon pro
 
 First, annotate your javascript functions with Haskell-like type signatures:
 
-    //+ str_first :: String, String -> String
+    //+ str_first :: String -> String -> String
     
     function str_first(c1,c2){
       return c1;
